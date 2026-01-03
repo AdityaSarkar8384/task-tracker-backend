@@ -6,9 +6,9 @@ function App() {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
-  const [view, setView] = useState("All"); // 👈 NEW
+  const [view, setView] = useState("All"); 
 
-  // FETCH TASKS
+
   const fetchTasks = async () => {
     const res = await fetch("/api/tasks");
     const data = await res.json();
@@ -19,7 +19,6 @@ function App() {
     fetchTasks();
   }, []);
 
-  // ADD TASK
   const addTask = async () => {
     if (!title || !dueDate) {
       alert("Title and Due Date required");
@@ -43,7 +42,6 @@ function App() {
     fetchTasks();
   };
 
-  // TOGGLE STATUS
   const toggleStatus = async (id, status) => {
     await fetch(`/api/tasks/${id}`, {
       method: "PUT",
@@ -55,14 +53,12 @@ function App() {
     fetchTasks();
   };
 
-  // DELETE TASK
   const deleteTask = async (id) => {
     if (!window.confirm("Delete this task?")) return;
     await fetch(`/api/tasks/${id}`, { method: "DELETE" });
     fetchTasks();
   };
 
-  // 👇 FILTER LOGIC (FIXED)
   const visibleTasks = tasks.filter((task) => {
     if (view === "Pending") return task.status === "Pending";
     if (view === "Completed") return task.status === "Completed";
@@ -71,7 +67,7 @@ function App() {
 
   return (
     <div className="dashboard">
-      {/* SIDEBAR */}
+ 
       <aside className="sidebar">
         <h2>Task Tracker</h2>
         <ul>
@@ -96,9 +92,9 @@ function App() {
         </ul>
       </aside>
 
-      {/* MAIN */}
+
       <main className="main">
-        {/* HEADER */}
+      
         <div className="header">
           <h1>{view} Tasks</h1>
 
@@ -119,7 +115,7 @@ function App() {
           </div>
         </div>
 
-        {/* TASK LIST */}
+
         <div className="task-list">
           {visibleTasks.length === 0 && (
             <p style={{ color: "#aaa" }}>No tasks found</p>
